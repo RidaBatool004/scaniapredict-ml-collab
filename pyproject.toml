@@ -48,3 +48,9 @@ extend-select = ["I"]  # Add import sorting
 known-first-party = ["scania_failure_prediction"]
 force-sort-within-sections = true
 
+[dependency-groups]
+dev = [
+    "detect-secrets>=1.5.0",
+    "pre-commit>=4.6.2",
+]
+
