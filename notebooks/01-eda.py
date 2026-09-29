@@ -8,48 +8,30 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.19.5
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: scania-failure-prediction (3.11.x)
 #     language: python
 #     name: python3
 # ---
-
-# %%
-from pathlib import Path
-
-import pandas as pd
-
-# 1. Define file path using a raw string to handle Windows backslashes
-DATA_PATH = Path(r"D:\mlops assi\scaniapredict-ml-collab\data\raw\aps_failure_training_set.csv")
-
-# 2. Read CSV:
-# - skip_blank_lines=True ignores comment blocks separated by blank lines if needed
-# - na_values="na" converts all "na" strings directly into np.nan
-# - comment='#' can be used if lines start with #, otherwise pandas auto-detects the header row
-df = pd.read_csv(
-    DATA_PATH,
-    comment="T",  # Skips lines starting with "This" (the license header)
-    skiprows=17,  # Alternatively, skip the first 17 lines of copyright text
-    na_values="na",  # Automatically converts 'na' strings to NaN
-)
-
-print("Shape:", df.shape)
-print("\nFirst 5 columns preview:")
-print(df.iloc[:, :5].head())
 
 # %% [markdown]
 # # imports
 
 # %%
-# from scania_failure_prediction.cleaning import clean_sensor_data
+from pathlib import Path
+import sys
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+from scania_failure_prediction.cleaning import clean_sensor_data
+
 # %% [markdown]
 # # load data
+
 # %%
 # Cell 2 — Load Data Correctly
-from pathlib import Path  # noqa: E402
 
-import matplotlib.pyplot as plt  # noqa: E402
-import pandas as pd  # noqa: E402
-import seaborn as sns  # noqa: E402
 
 DATA_PATH = Path("../data/raw/aps_failure_training_set.csv")
 
@@ -76,7 +58,6 @@ missing = df.isna().sum().sort_values(ascending=False).to_frame("missing_count")
 missing["missing_pct"] = missing["missing_count"] / len(df) * 100
 
 missing.head(20)
-
 
 # %% [markdown]
 # # visualize missingness
@@ -154,3 +135,31 @@ df[selected_features].hist(
 plt.suptitle("Distributions of selected sensor features")
 plt.tight_layout()
 plt.show()
+
+# %%
+
+
+PROJECT_ROOT = (
+    Path.cwd().resolve().parents[0] if Path.cwd().name == "notebooks" else Path.cwd().resolve()
+)
+SRC_PATH = PROJECT_ROOT / "src"
+
+if str(SRC_PATH) not in sys.path:
+    sys.path.append(str(SRC_PATH))
+
+# %%
+
+
+cleaned_df = clean_sensor_data(
+    df,
+    missing_threshold=0.95,
+)
+
+print("Original shape:", df.shape)
+print("Cleaned shape:", cleaned_df.shape)
+
+# %%
+removed_columns = sorted(set(df.columns) - set(cleaned_df.columns))
+
+print(f"Removed {len(removed_columns)} high-missingness columns.")
+print(removed_columns[:20])
