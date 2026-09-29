@@ -51,7 +51,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 import pandas as pd  # noqa: E402
 import seaborn as sns  # noqa: E402
 
-DATA_PATH = Path(r"D:\mlops assi\scaniapredict-ml-collab\data\raw\aps_failure_training_set.csv")
+DATA_PATH = Path("../data/raw/aps_failure_training_set.csv")
 
 # Read skipping the header comment block (20 lines) and the separator line ('---')
 df = pd.read_csv(DATA_PATH, skiprows=20, comment="-", na_values="na", low_memory=False)
