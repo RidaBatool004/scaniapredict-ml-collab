@@ -18,6 +18,7 @@ classifiers = [
 dependencies = [
     "dvc[s3]>=3.67.1",
     "ipython",
+    "joblib>=1.6.0",
     "jupyterlab",
     "loguru",
     "matplotlib",
@@ -27,6 +28,7 @@ dependencies = [
     "pip",
     "pytest",
     "python-dotenv",
+    "pyyaml>=6.0.3",
     "ruff",
     "scikit-learn",
     "seaborn>=0.13.2",
