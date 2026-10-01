@@ -1,0 +1,124 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: uv run python src/scania_failure_prediction/modeling/split.py
+    deps:
+    - path: data/raw/aps_failure_training_set.csv
+      hash: md5
+      md5: df9a09ae5b0c9555d7821a73fef8801d
+      size: 44669194
+    - path: src/scania_failure_prediction/modeling/split.py
+      hash: md5
+      md5: e078a68c13da7800e99ec0d2eb564554
+      size: 1762
+    params:
+      params.yaml:
+        data.input: data/raw/aps_failure_training_set.csv
+        data.random_state: 42
+        data.skiprows: 20
+        data.target_column: class
+        data.test_size: 0.2
+    outs:
+    - path: data/interim/train.csv
+      hash: md5
+      md5: dd11c044589b5097db7a728f58dec33f
+      size: 48819847
+    - path: data/interim/validation.csv
+      hash: md5
+      md5: f38eced93bdd78806ee7811428e338a8
+      size: 12204253
+  prepare:
+    cmd: uv run python src/scania_failure_prediction/modeling/prepare.py
+    deps:
+    - path: data/interim/train.csv
+      hash: md5
+      md5: dd11c044589b5097db7a728f58dec33f
+      size: 48819847
+    - path: data/interim/validation.csv
+      hash: md5
+      md5: f38eced93bdd78806ee7811428e338a8
+      size: 12204253
+    - path: src/scania_failure_prediction/modeling/prepare.py
+      hash: md5
+      md5: fa079f18aa36470863c7c1e0da9c8e84
+      size: 4195
+    params:
+      params.yaml:
+        preprocessing:
+          missing_value: na
+          missing_threshold: 0.95
+          imputation_strategy: median
+    outs:
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 4754035c3717afeba78b56c973132fa1
+      size: 168824052
+    - path: data/processed/X_validation.csv
+      hash: md5
+      md5: 48136926b35346cba4137c16c3ea568f
+      size: 42199684
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 47466defed5eaaea4dbc01ecc854e57c
+      size: 144007
+    - path: data/processed/y_validation.csv
+      hash: md5
+      md5: 54c4f8da5918e98075327bce7967d4f4
+      size: 36007
+    - path: models/preprocessor.joblib
+      hash: md5
+      md5: 7ec5a8912432981f8f203e1df88c2a69
+      size: 9735
+  train:
+    cmd: uv run python src/scania_failure_prediction/modeling/train.py
+    deps:
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 4754035c3717afeba78b56c973132fa1
+      size: 168824052
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 47466defed5eaaea4dbc01ecc854e57c
+      size: 144007
+    - path: src/scania_failure_prediction/modeling/train.py
+      hash: md5
+      md5: 3c0da0a0e9ac8968a2a935ee671ce5fb
+      size: 1797
+    params:
+      params.yaml:
+        model:
+          type: logistic_regression
+          C: 1.0
+          max_iter: 1000
+          class_weight: balanced
+          solver: lbfgs
+          random_state: 42
+    outs:
+    - path: models/model.joblib
+      hash: md5
+      md5: 635b88f773ccfec102a8d07ea2f84799
+      size: 3999
+  evaluate:
+    cmd: uv run python src/scania_failure_prediction/modeling/evaluate.py
+    deps:
+    - path: data/processed/X_validation.csv
+      hash: md5
+      md5: 48136926b35346cba4137c16c3ea568f
+      size: 42199684
+    - path: data/processed/y_validation.csv
+      hash: md5
+      md5: 54c4f8da5918e98075327bce7967d4f4
+      size: 36007
+    - path: models/model.joblib
+      hash: md5
+      md5: 635b88f773ccfec102a8d07ea2f84799
+      size: 3999
+    - path: src/scania_failure_prediction/modeling/evaluate.py
+      hash: md5
+      md5: 907806ea2dabd619f26b4836456b4f78
+      size: 2051
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: 921ea0274afd58ee3980ec327d86ef79
+      size: 247

@@ -1,0 +1,51 @@
+stages:
+  split:
+    cmd: uv run python src/scania_failure_prediction/modeling/split.py
+    deps:
+      - src/scania_failure_prediction/modeling/split.py
+      - data/raw/aps_failure_training_set.csv
+    params:
+      - data.input
+      - data.target_column
+      - data.skiprows
+      - data.test_size
+      - data.random_state
+    outs:
+      - data/interim/train.csv
+      - data/interim/validation.csv
+
+  prepare:
+    cmd: uv run python src/scania_failure_prediction/modeling/prepare.py
+    deps:
+      - src/scania_failure_prediction/modeling/prepare.py
+      - data/interim/train.csv
+      - data/interim/validation.csv
+    params:
+      - preprocessing
+    outs:
+      - data/processed/X_train.csv
+      - data/processed/X_validation.csv
+      - data/processed/y_train.csv
+      - data/processed/y_validation.csv
+      - models/preprocessor.joblib
+
+  train:
+    cmd: uv run python src/scania_failure_prediction/modeling/train.py
+    deps:
+      - src/scania_failure_prediction/modeling/train.py
+      - data/processed/X_train.csv
+      - data/processed/y_train.csv
+    params:
+      - model
+    outs:
+      - models/model.joblib
+
+  evaluate:
+    cmd: uv run python src/scania_failure_prediction/modeling/evaluate.py
+    deps:
+      - src/scania_failure_prediction/modeling/evaluate.py
+      - models/model.joblib
+      - data/processed/X_validation.csv
+      - data/processed/y_validation.csv
+    metrics:
+      - metrics.json
