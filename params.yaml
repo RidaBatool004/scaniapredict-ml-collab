@@ -6,13 +6,13 @@ data:
   random_state: 42
 
 preprocessing:
-  missing_value: "na"
+  missing_value: na
   missing_threshold: 0.95
   imputation_strategy: median
 
 model:
   type: logistic_regression
-  C: 1.0
+  C: 0.1
   max_iter: 1000
   class_weight: balanced
   solver: lbfgs
