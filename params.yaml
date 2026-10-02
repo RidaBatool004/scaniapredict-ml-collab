@@ -12,7 +12,7 @@ preprocessing:
 
 model:
   type: logistic_regression
-  C: 0.1
+  C: 10.0
   max_iter: 100
   class_weight: balanced
   solver: lbfgs
