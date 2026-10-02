@@ -2,7 +2,7 @@ data:
   input: data/raw/aps_failure_training_set.csv
   target_column: class
   skiprows: 20
-  test_size: 0.2
+  test_size: 0.30
   random_state: 42
 
 preprocessing:
