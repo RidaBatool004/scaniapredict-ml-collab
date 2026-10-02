@@ -12,7 +12,7 @@ def test_params_file_contains_required_pipeline_settings():
     assert params["data"]["input"] == "data/raw/aps_failure_training_set.csv"
     assert params["data"]["target_column"] == "class"
     assert params["data"]["skiprows"] == 20
-    assert params["data"]["test_size"] == 0.2
+    assert params["data"]["test_size"] == 0.3
     assert params["data"]["random_state"] == 42
 
     assert params["model"]["type"] == "logistic_regression"
