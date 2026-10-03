@@ -195,8 +195,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
-
-/metrics.json
+# /metrics.json
 
 # CI-generated metrics report
 ci_metrics.md
