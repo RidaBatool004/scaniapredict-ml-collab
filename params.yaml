@@ -1,0 +1,19 @@
+data:
+  input: data/raw/aps_failure_training_set.csv
+  target_column: class
+  skiprows: 20
+  test_size: 0.30
+  random_state: 42
+
+preprocessing:
+  missing_value: na
+  missing_threshold: 0.95
+  imputation_strategy: median
+
+model:
+  type: logistic_regression
+  C: 10
+  max_iter: 100
+  class_weight: balanced
+  solver: lbfgs
+  random_state: 42

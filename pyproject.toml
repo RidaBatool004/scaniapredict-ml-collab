@@ -16,7 +16,9 @@ classifiers = [
     "License :: OSI Approved :: MIT License"
 ]
 dependencies = [
+    "dvc[s3]>=3.67.1",
     "ipython",
+    "joblib>=1.6.0",
     "jupyterlab",
     "loguru",
     "matplotlib",
@@ -26,8 +28,10 @@ dependencies = [
     "pip",
     "pytest",
     "python-dotenv",
+    "pyyaml>=6.0.3",
     "ruff",
     "scikit-learn",
+    "seaborn>=0.13.2",
     "tqdm",
     "typer",
 ]
@@ -47,4 +51,13 @@ extend-select = ["I"]  # Add import sorting
 [tool.ruff.lint.isort]
 known-first-party = ["scania_failure_prediction"]
 force-sort-within-sections = true
+
+[dependency-groups]
+dev = [
+    "detect-secrets>=1.5.0",
+    "dvc>=3.67.1",
+    "jupyter>=1.1.1",
+    "jupytext>=1.19.5",
+    "pre-commit>=4.6.2",
+]
 
