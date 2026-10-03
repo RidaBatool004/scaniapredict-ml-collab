@@ -88,7 +88,7 @@ stages:
       params.yaml:
         model:
           type: logistic_regression
-          C: 0.1
+          C: 10
           max_iter: 100
           class_weight: balanced
           solver: lbfgs
@@ -96,7 +96,7 @@ stages:
     outs:
     - path: models/model.joblib
       hash: md5
-      md5: 45eb0b1bee83103f8f26e9e63e4d8a94
+      md5: 60c1a5d44a24d1a6c04cb199a1906e85
       size: 3999
   evaluate:
     cmd: uv run python src/scania_failure_prediction/modeling/evaluate.py
@@ -111,7 +111,7 @@ stages:
       size: 54007
     - path: models/model.joblib
       hash: md5
-      md5: 45eb0b1bee83103f8f26e9e63e4d8a94
+      md5: 60c1a5d44a24d1a6c04cb199a1906e85
       size: 3999
     - path: src/scania_failure_prediction/modeling/evaluate.py
       hash: md5
@@ -120,5 +120,5 @@ stages:
     outs:
     - path: metrics.json
       hash: md5
-      md5: 0e375a7b66b1f3654326b90d8239f486
-      size: 260
+      md5: ff8df55e236a4f27ac82e2b5855b9495
+      size: 247
