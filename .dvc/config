@@ -1,0 +1,7 @@
+[core]
+    remote = dagshub-storage
+['remote "dagshub-storage"']
+    url = s3://dvc
+    endpointurl = https://dagshub.com/ridabatool8990/scaniapredict-ml-collab.s3
+    connect_timeout = 300
+    read_timeout = 300
