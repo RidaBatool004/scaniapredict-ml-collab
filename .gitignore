@@ -4,6 +4,9 @@
 !/data/**/*.dvc
 !/data/**/.gitignore
 
+# Small committed sample used by GitHub Actions CI
+!/data/ci/aps_failure_sample.csv
+
 # Mac OS-specific storage files
 .DS_Store
 
@@ -194,3 +197,6 @@ cython_debug/
 .pypirc
 
 /metrics.json
+
+# CI-generated metrics report
+ci_metrics.md
