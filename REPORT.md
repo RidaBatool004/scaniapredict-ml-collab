@@ -16,8 +16,8 @@ The project completed all nine required phases, from repository setup and collab
 
 | Member      | Role                          | Main responsibilities                                                                                                                            |
 | ----------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Rida Batool | Model Owner / Platform & CI   | Reproducible ML pipeline, model experiments, DVC workflow, CI/CD, branch protection, experiment evaluation, integration, release reproducibility |
-| Maryam      | Data Owner / ML Collaboration | EDA, data versioning, model tuning experiments, data split change, peer review, release workflow                                                 |
+| Rida Batool (bsdsf23m007)  | Model Owner / Platform & CI   | Reproducible ML pipeline, model experiments, DVC workflow, CI/CD, branch protection, experiment evaluation, integration, release reproducibility |
+| Maryam Majid (bsdsf23m033) | Data Owner / ML Collaboration | EDA, data versioning, model tuning experiments, data split change, peer review, release workflow                                                 |
 
 ---
 
@@ -380,9 +380,10 @@ A test was intentionally changed to fail. The resulting CI run demonstrated that
 
 ### Abandoned experiment
 
-An experiment branch was intentionally left unmerged as required evidence for the experiment workflow.
+An experiment branch was intentionally left unmerged as required evidence for the experiment workflow. The experiment was evaluated against the team's other configurations, but its validation metric did not provide sufficient improvement compared with the configuration selected for promotion. Therefore, the experiment was abandoned rather than promoted to a feat/ branch.
 
-**Evidence:** the corresponding abandoned `exp/<member>-<idea>` branch in the repository.
+
+**Evidence:** the corresponding abandoned `exp/abandoned-logreg-test` branch in the repository.
 
 ---
 
@@ -627,7 +628,7 @@ Her contributions included:
 * contributing to release reproducibility validation
 * preparing the final project documentation
 
-## Maryam
+## Maryam Majid
 
 Maryam served as the data owner and ML collaboration contributor.
 
